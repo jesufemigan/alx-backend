@@ -55,8 +55,16 @@ for (const jobInfo of jobs) {
 
     job
         .on('enqueue', () => {
-            console.log()
+            console.log('Notification job created:', job.id);
         })
+        .on('complete', () => {
+            console.log('Notification job', job.id, 'completed');
+        })
+        .on('failed', () => {
+            console.log('Notification job', job.id, 'failed:', err.message || err.toString());
+        })
+        .on('progress', () => {
+            console.log('Notification job', job.id, `${progress}% complete`);
+        });
+        job.save();
 }
-
-const processJobs = 
